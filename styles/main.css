@@ -11,18 +11,23 @@ h1 {
 }
 
 .logo {
-    width: 70%;
+    width: 200px;
 }
 
-.btn {
+/* .btn {
     background-color: #f7ec59;
     color: black;
     border-radius: 20px;
     padding: 5px 20px;
     text-decoration: none;
     box-shadow: 2px 3px 5px lightgray;
-}
+} */
 
-.btn:hover {
+/* .btn:hover {
     background-color: #ffee00 ;
+} */
+
+.bi-film {
+    font-size: 30px;
+    margin-right: 10px;
 }
