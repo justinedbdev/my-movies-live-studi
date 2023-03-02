@@ -27,9 +27,6 @@
 
   <body>
     <?php
-      $firstName = "Justine"; 
-      $firstNames = [""];
-      echo("Bonjour, je m'appelle $firstName ! :)");
       ?>
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
