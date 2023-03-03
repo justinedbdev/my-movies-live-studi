@@ -27,10 +27,12 @@
 
   <body>
     <?php
-      foreach ($movies as $movie) {
-      
-    }
-      ?>
+
+    require_once "./entities/Movie.php" ;
+    $movie = new Movie(); 
+    $movie->setid(1)->setTitle("Avatar")->setDescription("Un film avec des gens bleus")->setDirector("James Cameron");
+
+    ?>
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -82,9 +84,9 @@
             alt="Avatar"
           />
           <div class="card-body">
-            <h5 class="card-title">Avatar</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Aventure</h6>
-            <p class="card-text">Un film avec des gens bleus.</p>
+            <h5 class="card-title"><?= $movie->getTitle() ?></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><?= $movie->getDirector() ?></h6>
+            <p class="card-text"><?= $movie->getDescription() ?></p>
             <a
               href="#"
               class="btn btn-warning"
