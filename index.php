@@ -27,6 +27,9 @@
 
   <body>
     <?php
+      foreach ($movies as $movie) {
+      
+    }
       ?>
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
