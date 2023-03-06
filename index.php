@@ -27,12 +27,24 @@
 
   <body>
     <?php
+    
+    require_once "./Entity/Movie.php";
+    require_once "./Controller/MovieController.php";
 
-    require_once "./entities/Movie.php" ;
-    $movie = new Movie(); 
-    $movie->setid(1)->setTitle("Avatar")->setDescription("Un film avec des gens bleus")->setDirector("James Cameron");
+    $movieController = new MovieController();
+    $movies = $movieController->getAll();
 
+    /* $movie = new Movie([
+      "id" => 1,
+      "title" => "Avatar",
+      "description" => "Un film avec des gens bleus",
+      "image_url" => "https://www.avoir-alire.com/IMG/jpg/Avatar_special_edition900.jpg",
+      "release_date" => "2009-12-16",
+      "director" => "James Cameron",
+      "category_id" => 3
+    ]); */
     ?>
+
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -77,61 +89,37 @@
       <h3>Découvrez et partagez des films !</h3>
 
       <section class="container d-flex justify-content-center">
-        <div class="card m-3" style="width: 18rem">
-          <img
-            class="card-img-top"
-            src="https://www.avoir-alire.com/IMG/jpg/Avatar_special_edition900.jpg"
-            alt="Avatar"
-          />
-          <div class="card-body">
-            <h5 class="card-title"><?= $movie->getTitle() ?></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><?= $movie->getDirector() ?></h6>
-            <p class="card-text"><?= $movie->getDescription() ?></p>
-            <a
-              href="#"
-              class="btn btn-warning"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Modifier"
-              ><i class="fa-regular fa-pen-to-square"></i
-            ></a>
-            <a
-              href="#"
-              class="btn btn-danger"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Supprimer"
-              ><i class="fa-regular fa-trash-can"></i
-            ></a>
+        <?php
+        foreach ($movies as $movie): ?>
+          <div class="card m-3" style="width: 18rem;">
+            <img
+              class="card-img-top"
+              src="<?= $movie->getImage_url() ?>"
+              alt="<?= $movie->getTitle() ?>"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><?= $movie->getTitle() ?></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><?= $movie->getRelease_date() ?></h6>
+              <p class="card-text"><?= $movie->getDescription() ?></p>
+              <a
+                href="#"
+                class="btn btn-warning"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Modifier"
+                ><i class="fa-regular fa-pen-to-square"></i
+              ></a>
+              <a
+                href="#"
+                class="btn btn-danger"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Supprimer"
+                ><i class="fa-regular fa-trash-can"></i
+              ></a>
+            </div>
           </div>
-        </div>
-
-        <div class="card m-3" style="width: 18rem">
-          <img class="card-img-top"
-          src=https://m.media-amazon.com/images/I/8129a7-9A7L._AC_SL1500_.jpg
-          alt="Titanic" />
-          <div class="card-body">
-            <h5 class="card-title">Titanic</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Drame</h6>
-            <p class="card-text">Un film avec un bateau qui coule.</p>
-            <a
-              href="#"
-              class="btn btn-warning"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Modifier"
-              ><i class="fa-regular fa-pen-to-square"></i
-            ></a>
-            <a
-              href="#"
-              class="btn btn-danger"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Supprimer"
-              ><i class="fa-regular fa-trash-can"></i
-            ></a>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </section>
     </main>
 

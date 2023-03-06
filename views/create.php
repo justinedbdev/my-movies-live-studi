@@ -89,6 +89,14 @@
           id="releaseDate"
           class="form-control"
         />
+        <label for="director">Réalisateur</label>
+        <input
+          type="text"
+          name="director"
+          id="director"
+          placeholder="Le réalisateur du film"
+          class="form-control"
+        />
         <label for="category">Catégorie</label>
         <select name="categoryId" id="category" class="form-select">
           <option value="" selected>-- Sélectionner une catégorie --</option>

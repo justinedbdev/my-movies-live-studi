@@ -12,14 +12,14 @@ class Movie {
   private int $category_id; 
 
   // Constructeur
-  public function __construct(array $data) {
+  public function __construct(array $data) 
+  {
     $this->hydrate($data);
-
   }
 
   // Méthodes
 
-public function hydrate(array $datas): void
+public function hydrate(array $data): void
 {
   foreach ($data as $key => $value) {
     $method = "set" . ucfirst($key);
