@@ -1,7 +1,5 @@
 <?php
 
-require_once "./config/DotEnv.php";
-
 class MovieController 
 {
   private PDO $pdo; 
@@ -49,9 +47,11 @@ class MovieController
     # code...
   }
 
-  public function delete(Movie $Movie): void
+  public function delete(int $id): void
   {
-    # code...
+    $req = $this->pdo->prepare("DELETE FROM `movie` WHERE id = :id");
+    $req->bindParam(":id", $id, PDO::PARAM_INT);
+    $req->execute();
   }
 
 }

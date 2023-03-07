@@ -45,7 +45,7 @@
                 <a
                   class="nav-link active"
                   aria-current="page"
-                  href="./views/create.php"
+                  href="./create.php"
                   >Publier un film</a
                 >
               </li>
