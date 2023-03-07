@@ -62,9 +62,9 @@ public function hydrate(array $data): void
 
   public function setDescription(string $description) : self
   {
-    if (strlen($description) >= 10 && strlen($description) <= 2000) {
+    //if (strlen($description) >= 10 && strlen($description) <= 2000) {
     $this->description = $description;
-    } 
+    //} 
     return $this;
   }
 
