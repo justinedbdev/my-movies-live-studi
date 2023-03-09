@@ -21,13 +21,13 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./styles/main.css" />
+        <link rel="stylesheet" href="./styles/main.css" />
     <title>My movies</title>
   </head>
 
   <body>
     <?php
-
+    session_start();
     function loadClass(string $class) 
     {
       if ($class === "DotEnv") {
@@ -75,7 +75,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
                   class="nav-link active"
@@ -90,20 +90,35 @@
                 >
               </li>
             </ul>
+            <ul class="navbar-nav ms-auto">
+              <?= $_SESSION && $_SESSION["username"] ? "<span>Bienvenue {$_SESSION["username"]} !</span>" : "" ?>
+              <li class="nav-item">
+                <a class="nav-link" href="./views/register.php"
+                  >S'inscrire</a
+                >
+              </li>
+              <li class="nav-item">
+                <?=
+                  $_SESSION ? '<a class="nav-link" href="./views/disconnect.php">Se déconnecter</a>' :
+                    '<a class="nav-link" href="./views/login.php">Se connecter</a>'
+                ?>
+
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
     </header>
 
     <main>
-      <img class="logo" src="./images/logo_white.svg" alt="logo my movies" />
-      <h1>My movies</h1>
-      <h3>Découvrez et partagez des films !</h3>
+      <img src="./images/logo_white.svg" alt="logo my movies" />
+      <h1 class="mb-5">Découvrez et partagez des films !</h1>
 
       <section class="container d-flex justify-content-center">
         <?php
         foreach ($movies as $movie): 
           $category = $categoryController->get($movie->getCategory_id());
+          $releaseDate = new DateTime($movie->getRelease_date());
         ?>
           <div class="card m-3" style="width: 18rem;">
             <img
@@ -113,11 +128,11 @@
             />
             <div class="card-body">
               <h5 class="card-title"><?= $movie->getTitle() ?></h5>
-              <h6 class="card-subtitle mb-2 text-muted"><?= $movie->getRelease_date() ?> - <?= $movie->getDirector() ?></h6>
+              <h6 class="card-subtitle mb-2 text-muted"><?= $releaseDate->format('d/m/Y') ?> - <?= $movie->getDirector() ?></h6>
               <p class="card-text"><?= $movie->getDescription() ?></p>
               <footer class="blockquote-footer" style="color: <?= $category->getColor() ?>"><?= $category->getName() ?></footer>
               <a
-                href="#"
+                href="./views/update.php?id=<?= $movie->getId() ?>"
                 class="btn btn-warning"
                 data-toggle="tooltip"
                 data-placement="top"

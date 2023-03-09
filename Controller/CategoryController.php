@@ -1,7 +1,5 @@
 <?php
 
-//require_once "../config/DotEnv.php";
-
 class CategoryController 
 {
   private PDO $pdo; 

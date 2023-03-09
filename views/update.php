@@ -43,8 +43,7 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link active"
-                  aria-current="page"
+                  class="nav-link"
                   href="./create.php"
                   >Publier un film</a
                 >
@@ -52,7 +51,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="./register.php"
+                <a class="nav-link" href="./views/register.php"
                   >S'inscrire</a
                 >
               </li>
@@ -79,24 +78,27 @@
       }
     }
     spl_autoload_register("loadClass");
+    $movieController = new MovieController();
     $categoryController = new CategoryController();
     $categories = $categoryController->getAll();
 
+    $movie = $movieController->get($_GET["id"]);
+
     if ($_POST) {
-      $movieController = new MovieController();
-      $newMovie = new Movie($_POST);
-      $movieController->create($newMovie);
+      $movie->hydrate($_POST);
+      $movieController->update($movie);
       echo "<script>window.location='../index.php'</script>";
     } ?>
 
     <main>
-      <h3>Publier un nouveau film</h3>
+      <h3>Modifier le film <?= $movie->getTitle() ?></h3>
       <form class="container-fluid w-50" method="POST">
         <label for="title">Titre</label>
         <input
           type="text"
           name="title"
           id="title"
+          value="<?= $movie->getTitle()?>"
           placeholder="Le titre du film"
           class="form-control"
         />
@@ -107,12 +109,13 @@
           rows="10"
           placeholder="Le résumé du film"
           class="form-control"
-        ></textarea>
+        ><?= $movie->getDescription()?></textarea>
         <label for="image_url">Image</label>
         <input
           type="url"
           name="image_url"
           id="image_url"
+          value="<?= $movie->getImage_url()?>"
           placeholder="L'URL de l'image du film"
           class="form-control"
         />
@@ -121,6 +124,7 @@
           type="date"
           name="release_date"
           id="release_date"
+          value="<?= $movie->getRelease_date()?>"
           class="form-control"
         />
         <label for="director">Réalisateur</label>
@@ -128,6 +132,7 @@
           type="text"
           name="director"
           id="director"
+          value="<?= $movie->getDirector()?>"
           placeholder="Le réalisateur du film"
           class="form-control"
         />
@@ -136,7 +141,7 @@
           <option value="" selected>-- Sélectionner une catégorie --</option>
           <?php
                 foreach ($categories as $category) : ?>
-                  <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+                  <option <?= $category->getId() === $movie->getCategory_id() ? "selected" : "" ?> value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
                 <?php endforeach ?>
         </select>
         <input type="submit" value="Publier" class="btn btn-primary mt-3" />
